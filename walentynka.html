@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walentynki</title>
+  <style>
+    body {
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background-color: #ffe6f0;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      color: #d6336c;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+      color: #333;
+      position: absolute;
+    }
+
+    #message {
+      margin-top: 40px;
+      font-size: 24px;
+      color: #d6336c;
+    }
+
+    img {
+      margin-top: 20px;
+      width: 200px;
+      border-radius: 10px;
+    }
+
+    /* Serduszka/emoji w tle */
+    .emoji {
+      position: absolute;
+      font-size: 24px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="question">Damiaś, czy zostaniesz moją walentynką?❤️</h1>
+  <button id="yes">TAK</button>
+  <button id="no">NIE</button>
+
+  <div id="message"></div>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const messageDiv = document.getElementById('message');
+    const question = document.getElementById('question');
+
+    // Przycisk NIE ucieka
+    noBtn.addEventListener('mouseenter', () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    // Po kliknięciu TAK
+    yesBtn.addEventListener('click', () => {
+      // Ukryj pytanie i przyciski
+      question.style.display = 'none';
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+
+      // Pokaż wiadomość i gif
+      messageDiv.innerHTML = `
+        Do zobaczenia 14 lutego!❤️ <br>
+        <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Kot">
+      `;
+
+      // Dodaj losowo latające serduszka
+      for (let i = 0; i < 30; i++) {
+        const emoji = document.createElement('div');
+        emoji.classList.add('emoji');
+        emoji.style.left = Math.random() * window.innerWidth + 'px';
+        emoji.style.fontSize = (20 + Math.random() * 30) + 'px';
+        emoji.textContent = '❤️';
+        emoji.style.animationDuration = (3 + Math.random() * 3) + 's';
+        document.body.appendChild(emoji);
+      }
+    });
+  </script>
+
+</body>
+</html>
